@@ -37,3 +37,9 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 models:
   taxi_rides_ny:
+    +project: vaulted-acolyte-462921-v2
+    +dataset: trips_data_all
+    
+vars:
+  payment_type_values: [1, 2, 3, 4, 5, 6]
+
