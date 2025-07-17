@@ -23,7 +23,10 @@ dim_zones as (
     select * from {{ ref('dim_zones') }}
     where borough != 'Unknown'
 )
-select  CAST(trips_unioned.vendorid AS INT64) AS vendorid, 
+select  
+
+    -- General view
+    CAST(trips_unioned.vendorid AS INT64) AS vendorid, 
     trips_unioned.service_type,
     CAST(trips_unioned.ratecodeid AS INT64) AS ratecodeid, 
     CAST(trips_unioned.pickup_locationid AS INT64) AS pickup_locationid, 
@@ -46,8 +49,9 @@ select  CAST(trips_unioned.vendorid AS INT64) AS vendorid,
     CAST(trips_unioned.ehail_fee AS NUMERIC) AS ehail_fee, 
     CAST(trips_unioned.improvement_surcharge AS NUMERIC) AS improvement_surcharge, 
     CAST(trips_unioned.total_amount AS NUMERIC) AS total_amount, 
-    trips_unioned.payment_type AS payment_type, 
+    trips_unioned.payment_type AS payment_type,
     trips_unioned.payment_type_description
+
 from trips_unioned
 inner join dim_zones as pickup_zone
 on trips_unioned.pickup_locationid = pickup_zone.locationid
